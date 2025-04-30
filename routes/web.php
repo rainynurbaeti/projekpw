@@ -25,8 +25,9 @@ Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Rental Mobil
-Route::get('/rental-mobil', [CarController::class, 'list'])->name('cars.index');
-Route::get('/booking', [CarController::class, 'booking'])->name('booking');
+Route::get('/rentalmobil', function () {
+    return view('rentalmobil');
+})->name('rentalmobil');
 
 // Fitur Pencarian
 Route::get('/search', [CarController::class, 'search'])->name('search');

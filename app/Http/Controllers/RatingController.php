@@ -14,18 +14,20 @@ class RatingController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'required|string|max:500',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'rating' => 'required|integer|min:1|max:5',
+        'comment' => 'required|string',
+    ]);
 
-        Rating::create([
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-        ]);
+    Rating::create([
+        'name' => $request->name,
+        'rating' => $request->rating,
+        'comment' => $request->comment,
+    ]);
 
-        return redirect()->route('about')->with('success', 'Terima kasih atas feedback Anda!');
+    return redirect()->back()->with('success', 'Komentar Anda berhasil dikirim!');
+}
 
-    }
 }

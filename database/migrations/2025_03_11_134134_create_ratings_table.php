@@ -8,6 +8,7 @@ return new class extends Migration {
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->after('id');
             $table->unsignedTinyInteger('rating'); // Rating (1-5)
             $table->text('comment'); // Komentar pengguna
             $table->timestamps();

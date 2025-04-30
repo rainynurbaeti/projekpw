@@ -26,7 +26,7 @@
       </div>
       <ul class="hidden md:flex space-x-8 text-sm font-normal">
         <li><a href="/" class="hover:underline hover:text-[#E30613] transition">Home</a></li>
-        <li><a href="{{ route('about') }}" class="hover:underline hover:text-[#E30613] transition">Tentang Kami</a></li>        <li><a href="#" class="hover:underline hover:text-[#E30613] transition">Rental Mobil</a></li>
+        <li><a href="{{ route('about') }}" class="hover:underline hover:text-[#E30613] transition">Tentang Kami</a></li>        <li><a href="{{ route('rentalmobil') }}" class="hover:underline hover:text-[#E30613] transition">Rental Mobil</a></li>
         <li><a href="#" class="hover:underline hover:text-[#E30613] transition">Artikel</a></li>
         <li><a href="{{ route('contact') }}" class="hover:underline hover:text-[#E30613] transition">Contact</a></li>
       </ul>

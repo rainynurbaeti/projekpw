@@ -1,17 +1,23 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-black text-red-500 min-h-screen py-10">
+
+<!-- Section Tentang Kami -->
+<div class="bg-black text-white min-h-screen py-10">
     <div class="text-center max-w-3xl mx-auto">
         <h1 class="text-4xl font-bold mb-6">Tentang Kami</h1>
-        <p class="text-lg mb-8">
-            Selamat datang di <strong>RentalYuk</strong>, layanan terbaik untuk kebutuhan transportasi Anda. Kami menyediakan berbagai jenis mobil dengan harga terjangkau dan pelayanan terbaik. RentalYuk hadir untuk memberikan pengalaman sewa mobil yang nyaman dan mudah bagi Anda.
+        <p class="text-lg mb-8 text-gray-300">
+            Selamat datang di <strong>AmalyaTrans</strong>, Amalya Trans adalah pilihan tepat bagi Anda yang mencari layanan rental mobil profesional dan terpercaya dari Kota Bogor. Kami menghadirkan berbagai jenis armada lengkap seperti Toyota Hiace Luxury, Isuzu Elf, Mercedes Sprinter, Bus Medium, Bus Besar, Avanza, Fortuner, dan banyak lagi — semua dalam kondisi prima dan selalu siap jalan.
+
+            Melayani berbagai kebutuhan perjalanan antar kota maupun dalam kota, Amalya Trans meliputi rute populer seperti Bogor, Bandung, Jakarta, Bali, Nusa Tenggara Timur (NTT), serta destinasi lainnya sesuai permintaan Anda.
+
+            Dengan semangat “Rent A Car Solution”, kami menghadirkan solusi transportasi terbaik untuk Anda. Mulai dari perjalanan wisata, urusan bisnis, ziarah, hingga kebutuhan keluarga, kami siap mendampingi perjalanan Anda dengan driver berpengalaman, armada bersih dan
         </p>
     </div>
 
     <!-- Galeri Mobil -->
     <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold text-center mb-6">Galeri Mobil</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <h2 class="text-2xl font-bold text-center mb-6 text-white">Galeri Mobil</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
             @foreach(['mobil1.jpeg', 'mobil2.jpeg', 'mobil3.jpeg', 'mobil4.jpeg', 'mobil5.jpeg', 'mobil6.jpeg'] as $mobil)
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
                     <img src="{{ asset('storage/image/' . $mobil) }}" alt="Mobil Rental" class="w-full h-48 object-cover">
@@ -21,62 +27,102 @@
     </div>
 </div>
 
-    <!-- Notifikasi jika komentar berhasil dikirim -->
-    @if(session('success'))
-        <div style="max-width: 600px; margin: 10px auto; padding: 10px; background: #d4edda; color: #155724; border-radius: 5px; text-align: center;">
-            {{ session('success') }}
+<!-- Notifikasi jika komentar berhasil dikirim -->
+@if(session('success'))
+    <div class="max-w-2xl mx-auto mt-6 p-4 bg-green-100 text-green-800 border border-green-300 rounded-md text-center">
+        {{ session('success') }}
+    </div>
+@endif
+
+
+
+<!-- Komentar Pengguna dengan Slider -->
+<div class="max-w-5xl mx-auto mt-10">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Apa Kata Mereka?</h2>
+            <p class="text-gray-600">
+                Simak pengalaman pelanggan yang puas dengan layanan kami di AmalyaTrans.
+                Ulasan mereka adalah motivasi kami untuk terus memberikan pelayanan terbaik.
+            </p>
         </div>
-    @endif
 
-    <!-- Formulir Rating dan Komentar -->
-    <div style="max-width: 600px; margin: 20px auto; text-align: center; background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);">
-        <h2 style="margin-bottom: 10px;">Beri Rating dan Komentar</h2>
-        <form method="POST" action="{{ route('ratings.store') }}" style="display: flex; flex-direction: column; gap: 10px;">
-            @csrf
-            <input type="text" id="name" name="name" placeholder="Nama Anda" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 100%;">
-            <select id="rating" name="rating" required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
-                <option value="4">⭐⭐⭐⭐ (4)</option>
-                <option value="3">⭐⭐⭐ (3)</option>
-                <option value="2">⭐⭐ (2)</option>
-                <option value="1">⭐ (1)</option>
-            </select>
-            <textarea id="comment" name="comment" rows="4" placeholder="Tulis komentar Anda..." required style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 100%;"></textarea>
-            <button type="submit" style="
-                background: #007bff;
-                color: white;
-                padding: 12px;
-                border: none;
-                border-radius: 5px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background 0.3s;
-            " onmouseover="this.style.background='#0056b3'" onmouseout="this.style.background='#007bff'">
-                Kirim
-            </button>
-        </form>
-    </div>
+        <div x-data="{ activeSlide: 0, totalSlides: {{ $ratings->count() }} }" class="relative w-full">
+            <div class="overflow-hidden">
+                <div class="flex transition-transform duration-500"
+                     :style="'transform: translateX(-' + activeSlide * 100 + '%)'">
+                    @foreach($ratings as $rating)
+                    <div class="min-w-full px-2">
+                        <div class="bg-white border border-gray-200 rounded-xl shadow p-4 h-full flex flex-col justify-between max-w-md mx-auto break-words min-h-60">
 
-    <!-- Menampilkan Komentar -->
-    <div style="max-width: 600px; margin: 20px auto;">
-        <h2 style="text-align: center;">Komentar Pengguna</h2>
-        @if(isset($ratings) && $ratings->isNotEmpty())
-            @foreach($ratings as $rating)
-                <div style="border-bottom: 1px solid #ddd; padding: 15px; background: #ffffff; border-radius: 8px; margin-bottom: 10px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="width: 40px; height: 40px; background: #007bff; color: white; display: flex; justify-content: center; align-items: center; border-radius: 50%; font-weight: bold; font-size: 18px;">
-                            {{ strtoupper(substr($rating->name, 0, 1)) }}
+                            <div class="max-w-md bg-white rounded-xl shadow-md p-6 text-center">
+                                <!-- Komentar -->
+                                <p class="text-gray-600 text-base leading-relaxed mb-6 min-h-40 text-justify italic">
+                                    “{{ $rating->comment }}”
+                                </p>
+
+                                <!-- Rating -->
+                                <div class="inline-flex bg-[#FFF3EB] rounded-md px-4 py-1 mb-4">
+                                    @for ($i = 0; $i < $rating->rating; $i++)
+                                        <svg class="w-5 h-5 text-[#FFB547]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967h4.173c.969 0 1.371 1.24.588 1.81l-3.378 2.454 1.287 3.967c.3.921-.755 1.688-1.539 1.118L10 13.011l-3.378 2.454c-.783.57-1.838-.197-1.539-1.118l1.287-3.967-3.378-2.454c-.783-.57-.38-1.81.588-1.81h4.173l1.286-3.967z"/>
+                                        </svg>
+                                    @endfor
+                                </div>
+
+                                <!-- Nama -->
+                                <div class="text-sm text-gray-900 font-semibold">— {{ $rating->name }}</div>
+                            </div>
+
+                            </div>
                         </div>
-                        <div>
-                            <p style="font-weight: bold; margin: 0;">{{ $rating->name }}</p>
-                            <p style="color: #ff9800; font-size: 18px; margin: 0;">{{ str_repeat('⭐', $rating->rating) }}</p>
-                        </div>
-                    </div>
-                    <p style="color: #555; margin-top: 10px;">{{ $rating->comment }}</p>
+                    @endforeach
                 </div>
-            @endforeach
-        @else
-            <p style="text-align: center; color: #666;">Belum ada komentar.</p>
-        @endif
+            </div>
+
+            <!-- Tombol navigasi -->
+            <div class="flex justify-center gap-2 mt-4">
+                <template x-for="(slide, index) in totalSlides">
+                    <button @click="activeSlide = index"
+                            class="w-3 h-3 rounded-full"
+                            :class="index === activeSlide ? 'bg-blue-600' : 'bg-gray-300'"></button>
+                </template>
+            </div>
+        </div>
     </div>
+</div>
+
+
+
+<!-- Formulir Rating dan Komentar -->
+<div class="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Beri Rating dan Komentar</h2>
+    <form method="POST" action="{{ route('ratings.store') }}" class="space-y-4">
+        @csrf
+        <input type="text" id="name" name="name" placeholder="Nama Anda" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+        <select id="rating" name="rating" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+            <option value="4">⭐⭐⭐⭐ (4)</option>
+            <option value="3">⭐⭐⭐ (3)</option>
+            <option value="2">⭐⭐ (2)</option>
+            <option value="1">⭐ (1)</option>
+        </select>
+
+        <textarea id="comment" name="comment" rows="4" placeholder="Tulis komentar Anda..." required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+
+        <button type="submit"
+                class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
+            Kirim
+        </button>
+    </form>
+</div>
+<!-- Tambahkan Alpine.js -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+
+
 @endsection

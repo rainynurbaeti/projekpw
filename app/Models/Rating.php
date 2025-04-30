@@ -9,6 +9,6 @@ class Rating extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['rating', 'comment']; // Tambahkan 'rating' agar bisa mass assignment
+    protected $fillable = ['name', 'rating', 'comment'];
 }
 
