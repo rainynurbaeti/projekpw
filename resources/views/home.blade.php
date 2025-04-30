@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="pt-[88px] max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-0">
+<div class="pt-[88px] max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-0">
 
     <!-- Konten Kiri -->
     <section class="flex-1 max-w-xl">
@@ -17,37 +17,17 @@
                 PURCHASE ROTORS
             </button>
         </div>
-        <div class="flex space-x-6 md:space-x-12">
-            <div class="text-center">
-                <p class="text-3xl font-extrabold select-none">17<span class="text-xl">+</span></p>
-                <p class="text-xs tracking-widest mt-1 text-gray-300">TOTAL PAGES</p>
-            </div>
-            <div class="text-center">
-                <p class="text-3xl font-extrabold select-none">2<span class="text-xl">+</span></p>
-                <p class="text-xs tracking-widest mt-1 text-gray-300">HOME PAGES</p>
-            </div>
-            <div class="text-center">
-                <p class="text-3xl font-extrabold select-none">15<span class="text-xl">+</span></p>
-                <p class="text-xs tracking-widest mt-1 text-gray-300">INNER PAGES</p>
-            </div>
-        </div>
+
     </section>
 
     <!-- Gambar Mobil -->
     <section class="flex-1 flex justify-center md:justify-end">
-    <img src="{{ asset('storage/image/mobil4.jpeg') }}" 
-    alt="mobil4" 
-    class="w-4/5 md:w-full max-w-[400px] h-auto object-contain rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+    <img src="{{ asset('storage/image/mobil4.jpeg') }}"
+    alt="mobil4"
+    class="w-4/5 md:w-full max-w-[320px] h-auto object-contain rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
     </section>
 </div>
 
-<!-- Informasi Rental -->
-<div class="text-center max-w-3xl mx-auto mt-16">
-    <h2 class="text-xl font-bold mb-4">Daftar Mobil Tersedia</h2>
-    <p class="text-base text-gray-300">
-        Selamat datang di <strong>RentalYuk</strong>! Kami menyediakan berbagai pilihan mobil berkualitas dengan harga terbaik.
-        Sewa mobil dengan mudah dan nyaman untuk keperluan perjalanan Anda. Temukan kendaraan yang sesuai dengan kebutuhan Anda di sini!
-    </p>
 </div>
 
 <!-- Script Booking -->
